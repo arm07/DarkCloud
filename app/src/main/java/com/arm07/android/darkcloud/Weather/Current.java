@@ -1,4 +1,6 @@
-package com.arm07.android.darkcloud;
+package com.arm07.android.darkcloud.Weather;
+
+import com.arm07.android.darkcloud.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -8,7 +10,7 @@ import java.util.TimeZone;
  * Created by rashmi on 11/4/2017.
  */
 
-public class CurrentWeather {
+public class Current {
     private String mIcon;
     private long mTime;
     private double mTemperature,mHumidity,mPrecipChance;
@@ -28,7 +30,7 @@ public class CurrentWeather {
     }
 
     public int getIconId(){
-        int iconId=R.drawable.clear_day;
+        int iconId= R.drawable.clear_day;
 
         if (mIcon.equals("clear-day")) {
             iconId = R.drawable.clear_day;

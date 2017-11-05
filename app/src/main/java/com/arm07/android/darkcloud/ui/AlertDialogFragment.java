@@ -1,4 +1,4 @@
-package com.arm07.android.darkcloud;
+package com.arm07.android.darkcloud.ui;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
