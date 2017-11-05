@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="6dp"
+    android:paddingRight="12dp"
+    android:paddingBottom="6dp"
+    android:paddingLeft="42dp"
+    tools:background="@drawable/gradient">
+
+    <ImageView
+        android:id="@+id/circleImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        app:srcCompat="@drawable/bg_temperature" />
+
+    <ImageView
+        android:id="@+id/iconImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/circleImageView"
+        app:srcCompat="@drawable/clear_day" />
+
+    <TextView
+        android:id="@+id/nameDayLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/TemperatureLabel"
+        android:layout_alignBottom="@+id/TemperatureLabel"
+        android:layout_toEndOf="@+id/iconImageView"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Wednesday"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/TemperatureLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/circleImageView"
+        android:layout_alignBottom="@+id/circleImageView"
+        android:layout_alignLeft="@+id/circleImageView"
+        android:layout_alignRight="@+id/circleImageView"
+        android:gravity="center"
+        tools:text="100"
+        android:text="temp"
+        android:textColor="#f25019" />
+</RelativeLayout>

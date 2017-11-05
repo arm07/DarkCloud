@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_light"
+    android:background="@drawable/gradient"
     tools:context="com.arm07.android.darkcloud.ui.MainActivity">
-
+    <!--
+    android:background="@android:color/holo_blue_light"
+    -->
 
     <TextView
         android:id="@+id/temperatureTextView"
@@ -16,17 +18,16 @@
         android:layout_centerVertical="true"
         android:text="100"
         android:textColor="@android:color/white"
-        android:textSize="150sp" />
+        android:textSize="100sp" />
 
     <ImageView
         android:id="@+id/degreeImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/timeLabel"
 
+        android:layout_alignTop="@+id/temperatureTextView"
         android:layout_marginStart="14dp"
-        android:layout_marginTop="31dp"
-        android:layout_toEndOf="@+id/temperatureTextView"
+        android:layout_toEndOf="@+id/summaryLabel"
         app:srcCompat="@drawable/degree" />
 
     <TextView
@@ -34,8 +35,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/temperatureTextView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="12dp"
+        android:layout_alignEnd="@+id/locationLabel"
+        android:layout_marginBottom="16dp"
         android:text="At 5'o clock it will be"
         android:textColor="#80ffffff"
         android:textSize="14sp" />
@@ -44,9 +45,9 @@
         android:id="@+id/locationLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/timeLabel"
+        android:layout_alignTop="@+id/iconImageView"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="36dp"
+        android:layout_marginTop="19dp"
         android:text="Chicago, IL"
         android:textColor="@android:color/white"
         android:textSize="24sp" />
@@ -56,9 +57,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/timeLabel"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="25dp"
-        android:layout_marginStart="26dp"
+        android:layout_marginBottom="32dp"
+        android:layout_toStartOf="@+id/temperatureTextView"
         app:srcCompat="@drawable/cloudy_night" />
 
     <LinearLayout
@@ -130,19 +130,45 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayout2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="12dp"
         android:gravity="center_horizontal"
         android:text="chances of Rain"
         android:textColor="#80ffffff"
         android:textSize="24sp" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/refereshImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/iconImageView"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="18dp"
         app:srcCompat="@drawable/refresh" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/summaryLabel"
+        android:layout_marginTop="14dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/hourlyButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#40FFFFFF"
+            android:text="HOURLY"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/dailyButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1"
+            android:background="#40FFFFFF"
+            android:text="7 DAY"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
 
 </RelativeLayout>
