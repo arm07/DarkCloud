@@ -1,4 +1,4 @@
-package com.arm07.android.darkcloud.Weather;
+package com.arm07.android.darkcloud.weather;
 
 import com.arm07.android.darkcloud.R;
 

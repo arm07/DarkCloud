@@ -17,7 +17,7 @@ public class AlertDialogFragment extends DialogFragment {
         Context context=getActivity();
         AlertDialog.Builder builder=new AlertDialog.Builder(context);
         builder.setTitle("Oops! sorry")
-                .setMessage("theres is an error.Ty again")
+                .setMessage("there is an error.Ty again")
                 .setPositiveButton("OK",null);
         AlertDialog dialog=builder.create();
         return dialog;

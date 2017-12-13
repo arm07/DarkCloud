@@ -1,4 +1,4 @@
-package com.arm07.android.darkcloud.Weather;
+package com.arm07.android.darkcloud.weather;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
