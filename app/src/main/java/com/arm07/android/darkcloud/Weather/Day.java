@@ -1,4 +1,4 @@
-package com.arm07.android.darkcloud.Weather;
+package com.arm07.android.darkcloud.weather;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -16,6 +16,7 @@ public class Day implements Parcelable {
     private long mTime;
     private String mSummary;
     private double mMaxTemperature;
+    //private int mMaxTemperature;
     private String mIcon;
     private String mTimeZone;
 
@@ -42,11 +43,19 @@ public class Day implements Parcelable {
     public int getMaxTemperature() {
         return (int)Math.round(mMaxTemperature);
     }
+   /* public double getMaxTemperature() {
+        return mMaxTemperature;
+    }
+*/
+   public void setMaxTemperature(double maxTemperature)
+   {
+       mMaxTemperature = maxTemperature;
+   }
 
-    public void setMaxTemperature(double maxTemperature) {
+    /*  public void setMaxTemperature(int maxTemperature) {
         mMaxTemperature = maxTemperature;
     }
-
+*/
     public String getIcon() {
         return mIcon;
     }
@@ -84,18 +93,23 @@ public class Day implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(mTime);
-        dest.writeString(mTimeZone);
         dest.writeString(mSummary);
+        //dest.writeInt(mMaxTemperature);
         dest.writeDouble(mMaxTemperature);
         dest.writeString(mIcon);
+        dest.writeString(mTimeZone);
     }
 
+    /*
+    Classes implementing Parcelable must have a private Constructor and CREATOR Object
+     */
     private Day(Parcel in){
         mTime=in.readLong();
-        mTimeZone=in.readString();
         mSummary=in.readString();
         mMaxTemperature=in.readDouble();
+       // mMaxTemperature=in.readInt();
         mIcon=in.readString();
+        mTimeZone=in.readString();
     }
 
     public static final Creator<Day> CREATOR=new Creator<Day>() {

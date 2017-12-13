@@ -1,4 +1,4 @@
-package com.arm07.android.darkcloud.Weather;
+package com.arm07.android.darkcloud.weather;
 
 /**
  * Created by rashmi on 11/4/2017.

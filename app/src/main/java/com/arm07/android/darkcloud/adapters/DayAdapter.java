@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.arm07.android.darkcloud.R;
-import com.arm07.android.darkcloud.Weather.Day;
+import com.arm07.android.darkcloud.weather.Day;
 
 /**
  * Created by rashmi on 11/5/2017.
@@ -47,7 +47,8 @@ public class DayAdapter extends BaseAdapter {
             viewHolder=new ViewHolder();
             viewHolder.iconLabel=(ImageView)convertView.findViewById(R.id.iconImageView);
             viewHolder.dayLabel=(TextView)convertView.findViewById(R.id.nameDayLabel);
-            viewHolder.temperature=(TextView)convertView.findViewById(R.id.temperatureTextView);
+            viewHolder.temperature=(TextView)convertView.findViewById(R.id.TemperatureLabel);
+            viewHolder.circleImageView = (ImageView) convertView.findViewById(R.id.circleImageView);
 
             convertView.setTag(viewHolder);
         }
@@ -59,6 +60,7 @@ public class DayAdapter extends BaseAdapter {
         viewHolder.iconLabel.setImageResource(day.getIconId());
         viewHolder.temperature.setText(day.getMaxTemperature()+"");
         viewHolder.dayLabel.setText(day.getDayOfTheWeek());
+        viewHolder.circleImageView.setImageResource(R.drawable.bg_temperature);
 
         return convertView;
     }
@@ -67,6 +69,8 @@ public class DayAdapter extends BaseAdapter {
         ImageView iconLabel;
         TextView temperature;
         TextView dayLabel;
+        ImageView circleImageView;
+
 
     }
 }

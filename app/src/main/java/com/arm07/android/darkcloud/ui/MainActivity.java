@@ -2,21 +2,24 @@ package com.arm07.android.darkcloud.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.arm07.android.darkcloud.R;
-import com.arm07.android.darkcloud.Weather.Current;
-import com.arm07.android.darkcloud.Weather.Day;
-import com.arm07.android.darkcloud.Weather.Forecast;
-import com.arm07.android.darkcloud.Weather.Hour;
+import com.arm07.android.darkcloud.weather.Current;
+import com.arm07.android.darkcloud.weather.Day;
+import com.arm07.android.darkcloud.weather.Forecast;
+import com.arm07.android.darkcloud.weather.Hour;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,31 +51,64 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.precipValueLabel)TextView mPrecipLabel;
     @BindView(R.id.summaryLabel)TextView mSummaryLabel;
     @BindView(R.id.iconImageView)ImageView mImageIconLabel;
+    @BindView(R.id.dailyButton)Button mButton;
+    @BindView(R.id.refereshImageView)ImageView mRefreshImageView;
+    @BindView(R.id.progressBar)ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        mProgressBar.setVisibility(View.INVISIBLE);
 
+        final double latitute = 41.9142;
+        final double longitude = -88.3087;
+        mRefreshImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getForecast(latitute,longitude);
+            }
+        });
+        getForecast(latitute,longitude);
+            Log.d(TAG, "main thread");
+    }
+
+    private void getForecast(double latitute,double longitude) {
         String apiKey = "04e74f90d146ebb31f96a0685ef4a312";
-        double latitute = 41.9142;
-        double longitude = -88.3087;
         String foreCastUrl = "https://api.darksky.net/forecast/" + apiKey + "/" + latitute + "," + longitude;
+        //String foreCastUrl = "https://api.darksky.net/forecast/04e74f90d146ebb31f96a0685ef4a312/41.9142,-88.3087;
 
         if (isNetworkAvailable()) {
+            toggleRefresh();
+
             OkHttpClient client = new OkHttpClient();
-            Request request = new Request.Builder().url(foreCastUrl).build();
+            Request request = new Request.
+                    Builder().
+                    url(foreCastUrl).
+                    build();
             Call call = client.newCall(request);
             call.enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            toggleRefresh();
+                        }
+                    });
+                    alertUserAboutError();
                 }
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     //Response response=call.execute();
                     //Log.v(TAG, response.body().string());
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            toggleRefresh();
+                        }
+                    });
                     String jsonData=response.body().string();
                     if (response.isSuccessful()) {
                         try {
@@ -98,7 +134,17 @@ public class MainActivity extends AppCompatActivity {
         else{
             Toast.makeText(this,"network unavailble",Toast.LENGTH_SHORT).show();
         }
-            Log.d(TAG, "main thread");
+    }
+
+    private void toggleRefresh() {
+        if (mProgressBar.getVisibility() == View.INVISIBLE) {
+            mProgressBar.setVisibility(View.VISIBLE);
+            mRefreshImageView.setVisibility(View.INVISIBLE);
+        }
+        else {
+            mProgressBar.setVisibility(View.INVISIBLE);
+            mRefreshImageView.setVisibility(View.VISIBLE);
+        }
     }
 
     private void upDateDisplay() {
@@ -108,6 +154,9 @@ public class MainActivity extends AppCompatActivity {
         mHunidityLabel.setText(mCurrent.getmHumidity()+"");
         mPrecipLabel.setText(mCurrent.getmPrecipChance()+"%");
         mSummaryLabel.setText(mCurrent.getmSummary());
+
+        Drawable drawable=getResources().getDrawable(mCurrent.getIconId());
+        mImageIconLabel.setImageDrawable(drawable);
     }
 
     private Forecast getForecastDetails(String jsonData) throws JSONException{
@@ -152,6 +201,7 @@ public class MainActivity extends AppCompatActivity {
             day.setSummary(jsonDay.getString("summary"));
             day.setIcon(jsonDay.getString("icon"));
             day.setMaxTemperature(jsonDay.getDouble("temperatureHigh"));
+            //day.setMaxTemperature((int) jsonDay.getDouble("temperatureHigh"));
             day.setTime(jsonDay.getLong("time"));
             day.setTimeZone(timezone);
             days[i]=day;
